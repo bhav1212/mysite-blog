@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Lessons from the air-cargo forecasting problem: honest baselines, time-aware validation, decision-relevant errors, and an operational handoff." />
+<title>What Air Cargo Forecasting Taught Me About Real-World ML — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/forecasting-air-cargo.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-08" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="What Air Cargo Forecasting Taught Me About Real-World ML — Bhavesh Jain" />
+<meta property="og:description" content="Lessons from the air-cargo forecasting problem: honest baselines, time-aware validation, decision-relevant errors, and an operational handoff." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/forecasting-air-cargo.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/forecasting-air-cargo.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="What Air Cargo Forecasting Taught Me About Real-World ML — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/forecasting-air-cargo.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What Air Cargo Forecasting Taught Me About Real-World ML",
+  "description": "Lessons from the air-cargo forecasting problem: honest baselines, time-aware validation, decision-relevant errors, and an operational handoff.",
+  "url": "https://blog.bhaveshjain.com/forecasting-air-cargo.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/forecasting-air-cargo.html"
+  },
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/forecasting-air-cargo.png",
+  "keywords": [
+    "time-series",
+    "lessons"
+  ],
+  "wordCount": 585,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+    <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="g2a" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#fcb045"/>
+          <stop offset="60%"  stop-color="#fd1d77"/>
+          <stop offset="100%" stop-color="#833ab4"/>
+        </linearGradient>
+        <linearGradient id="g2line" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#fcb045"/>
+          <stop offset="100%" stop-color="#00d9f5"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="525" fill="#0a0a18"/>
+      <!-- soft gradient wash -->
+      <rect width="1200" height="525" fill="url(#g2a)" opacity="0.18"/>
+
+      <!-- Grid -->
+      <g stroke="#ffffff" stroke-opacity="0.05">
+        <line x1="60"  y1="100" x2="1140" y2="100"/>
+        <line x1="60"  y1="200" x2="1140" y2="200"/>
+        <line x1="60"  y1="300" x2="1140" y2="300"/>
+        <line x1="60"  y1="400" x2="1140" y2="400"/>
+      </g>
+
+      <!-- Forecast line -->
+      <path d="M60,380 Q200,300 320,330 T580,260 T880,200 T1140,140"
+            fill="none" stroke="url(#g2line)" stroke-width="3"/>
+      <!-- Forecast confidence band -->
+      <path d="M60,380 Q200,300 320,330 T580,260 T880,200 T1140,140 L1140,180 T880,240 T580,300 T320,370 Q200,340 60,420 Z"
+            fill="url(#g2line)" opacity="0.12"/>
+
+      <!-- Stylised plane -->
+      <g transform="translate(870 160) rotate(-12)">
+        <path d="M0,0 L80,-8 L120,-22 L130,-15 L100,4 L150,12 L165,20 L120,18 L90,30 L80,30 L60,18 L0,12 Z"
+              fill="url(#g2a)"/>
+      </g>
+
+      <text x="60" y="490" font-family="JetBrains Mono, monospace" font-size="14" fill="#a0a0c0">// the decision defines the forecast</text>
+    </svg>
+  </div>
+<div class="post-meta"><time datetime="2026-05-08">2026-05-08</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#time-series">#time-series</a> <a class="tag" href="tags.html#lessons">#lessons</a></div>
+<h1>What Air Cargo Forecasting Taught Me About Real-World ML</h1>
+<div class="post-body">
+<p>My master's thesis focused on air cargo demand forecasting. The lasting lesson is not that one model family always wins. It is that forecasting becomes useful only when the target, the evaluation, and the delivery process match the decision somebody needs to make.</p>
+<p>The examples below illustrate that problem rather than reproduce a confidential dataset or claim new thesis results. Cargo demand is a helpful setting because the distance between a good statistical score and a useful planning input is easy to see.</p>
+<h2>Define the forecast around a decision</h2>
+<p>“Predict demand” leaves several important choices unresolved. At what level: total network, route, or customer? At what horizon? When must the prediction be available? What can a planner still change after receiving it?</p>
+<p>A four-week capacity decision and a next-day staffing decision need different targets and validation. Write those choices down before comparing architectures. Otherwise a model can win an experiment that never represented the operational task.</p>
+<h2>Make the baseline difficult to dismiss</h2>
+<p>Compare with simple alternatives that a planning team could actually operate. A seasonal-naive forecast repeats the corresponding observation from a previous season. Adding a trend adjustment creates a different baseline and should be named and tested separately.</p>
+<p>Baselines reveal how much improvement comes from modeling rather than from the predictability already present in the data. Compare their maintenance needs, failure behavior, and explanation cost as well as their errors. A small average gain does not automatically justify a more fragile deployment.</p>
+<h2>Use only information available at prediction time</h2>
+<p>Calendar information can be known in advance; revised economic data may not have been available when the forecast was issued. External regressors need an availability timestamp and a plan for obtaining their future values. Feeding actual future observations into a historical test makes the task easier than production.</p>
+<p>Fit preprocessing within each training window. Record the data vintage and forecasting cutoff. These details are less glamorous than the model, but they determine whether a backtest is answering an honest question.</p>
+<h2>Evaluate across multiple forecast origins</h2>
+<p>Rolling-origin evaluation moves the forecast cutoff through time and scores the horizons that matter. It can show whether improvements persist across seasons and changing conditions. It does not guarantee robustness to a shock that the observed history never contained.</p>
+<p>Inspect errors by horizon and route rather than only at the network level. MAPE needs particular care when actual volumes are zero or small. Absolute errors, scaled measures, and decision-specific costs each reveal different aspects of performance; no single metric removes the need to examine cases.</p>
+<h2>Connect uncertainty to the handoff</h2>
+<p>A planning interface should identify the forecast issue date, horizon, data freshness, and limitations. If intervals are supplied, evaluate their coverage and width on held-out periods. A very wide interval can achieve reassuring coverage without being useful for a capacity decision.</p>
+<p>Define what happens when a feed is late or the forecast job fails. A clearly labeled fallback may be more useful than silently displaying yesterday's output as today's. Record manual overrides with reasons so they can be reviewed without treating every override as ground truth.</p>
+<h2>The lesson beyond forecasting</h2>
+<p>An ML project is not complete when it writes a prediction file. It is complete enough to operate when somebody owns the inputs, understands the errors, receives the result at the right time, and knows how to recover when it fails. That same pattern appears in <a href="data-contracts-ml.html">data contracts</a> and <a href="prototype-to-production.html">product delivery</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://otexts.com/fpp3/tscv.html">Forecasting: Principles and Practice — Time series cross-validation</a></li>
+<li><a href="https://otexts.com/fpp3/accuracy.html">Forecasting: Principles and Practice — Evaluating point forecast accuracy</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="black-box-to-glass-box.html"><span class="pn-label">← Previous article</span><span class="pn-title">From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work</span></a>
+  <a class="post-nav-link next" href="trend-radar-with-llms.html"><span class="pn-label">Next article →</span><span class="pn-title">Building a Trend Radar with LLMs (Without Hallucinating the Future)</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

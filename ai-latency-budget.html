@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Measure time to a useful result, trace the critical path, and reduce waiting without quietly removing the checks that make the answer dependable." />
+<title>Designing a Latency Budget for AI Features — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/ai-latency-budget.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Designing a Latency Budget for AI Features — Bhavesh Jain" />
+<meta property="og:description" content="Measure time to a useful result, trace the critical path, and reduce waiting without quietly removing the checks that make the answer dependable." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/ai-latency-budget.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/ai-latency-budget.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Designing a Latency Budget for AI Features — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/ai-latency-budget.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Designing a Latency Budget for AI Features",
+  "description": "Measure time to a useful result, trace the critical path, and reduce waiting without quietly removing the checks that make the answer dependable.",
+  "url": "https://blog.bhaveshjain.com/ai-latency-budget.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/ai-latency-budget.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/ai-latency-budget.png",
+  "keywords": [
+    "performance",
+    "LLMs"
+  ],
+  "wordCount": 578,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#performance">#performance</a> <a class="tag" href="tags.html#llms">#LLMs</a></div>
+<h1>Designing a Latency Budget for AI Features</h1>
+<div class="post-body">
+<p>An AI feature can feel slow even when the model call is reasonably fast. Authentication, retrieval, reranking, tool calls, queueing, and post-processing all contribute to the wait. Optimizing the model alone can leave the actual bottleneck untouched.</p>
+<p>I would start with the user's workflow: when does the wait begin, when can the user do something useful, and when is the task actually complete? Those are not always the same timestamps.</p>
+<h2>Define the experience before the budget</h2>
+<p>An inline suggestion, an interactive research request, and an overnight report have different acceptable waits. Do not reuse one latency target simply because all three call a language model. Describe what users can do while waiting and whether cancellation or partial results are useful.</p>
+<p>Streaming can reduce the time before text appears, but the first token is not necessarily the first useful result. A user may still need the complete answer and its sources before taking action. Measure both the intermediate experience and completion.</p>
+<h2>Trace the whole request</h2>
+<p>Record the stages of a representative request under a shared trace identifier. Identify serial dependencies, parallel work, retries, and queueing. Segment by task type and input size so a large-document workflow does not hide inside the same average as a short lookup.</p>
+<p>Look at the distribution rather than only the mean. Slow-tail requests are part of the product experience. Do not add stage-level 95th percentiles and label the result the end-to-end 95th percentile; the end-to-end distribution needs to be measured directly.</p>
+<h2>Make a provisional budget explicit</h2>
+<p>For an illustrative synchronous workflow with a two-second target, a team might reserve 200 milliseconds for request handling, 300 for retrieval, 1,200 for generation, and 300 for validation and contingency. These are hypothetical planning allocations, not measured benchmarks or universal recommendations.</p>
+<p>The point of the budget is to reveal trade-offs. If one stage routinely consumes the whole allowance, the team must change the stage, the workflow, or the target. It cannot solve that conflict by relabeling waiting time as “thinking.”</p>
+<h2>Remove unnecessary work before removing safeguards</h2>
+<p>Check for repeated retrieval, duplicate model calls, excessive context, and sequential work that has no real dependency. Cache stable intermediate results when correctness and access boundaries allow it. Include relevant tenant, permission, source-version, and configuration context in cache design.</p>
+<p>Model routing or a smaller model may help for bounded subtasks, but it needs an outcome comparison. Reducing verification to meet a latency target can create a faster incorrect answer. Keep critical authorization and action checks outside that trade-off.</p>
+<h2>Bound retries and wasted work</h2>
+<p>A timeout followed by several retries can exceed the original user expectation while increasing load. Give the request an overall deadline and propagate cancellation where dependencies support it. Define which operations are safe to retry, especially when a tool may have performed a write before timing out.</p>
+<p>For long tasks, an asynchronous workflow with explicit status and a retrievable result may serve users better than a long-held request. The interface should explain what happens if the user leaves and how a failed job can be resumed or restarted.</p>
+<h2>Evaluate speed and usefulness together</h2>
+<p>Compare completion, quality, abandonment, and operational cost before and after the change. A faster answer that creates more correction work is not necessarily a faster task. Keep the critical-path trace next to the product outcome, and the next optimization becomes easier to choose.</p>
+<p>Related: <a href="ml-monitoring-after-launch.html">monitoring user-visible performance</a> and <a href="mvp-one-workflow.html">designing a complete workflow</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://sre.google/sre-book/monitoring-distributed-systems/">Google SRE: Monitoring Distributed Systems</a></li>
+<li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building effective agents</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="ai-feature-without-llm.html"><span class="pn-label">← Previous article</span><span class="pn-title">Before You Add an LLM, Build the Simplest Useful Baseline</span></a>
+  <a class="post-nav-link next" href="build-vs-buy.html"><span class="pn-label">Next article →</span><span class="pn-title">Build Versus Buy Is an Ownership Decision</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

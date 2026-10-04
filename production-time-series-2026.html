@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A practical forecasting stack starts with baselines, honest backtests, input checks, and recovery—not a claim that one model family always wins." />
+<title>Production Time Series in 2026: The Boring Tools That Win — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/production-time-series-2026.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-03-26" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Production Time Series in 2026: The Boring Tools That Win — Bhavesh Jain" />
+<meta property="og:description" content="A practical forecasting stack starts with baselines, honest backtests, input checks, and recovery—not a claim that one model family always wins." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/production-time-series-2026.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/production-time-series-2026.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Production Time Series in 2026: The Boring Tools That Win — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/production-time-series-2026.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Production Time Series in 2026: The Boring Tools That Win",
+  "description": "A practical forecasting stack starts with baselines, honest backtests, input checks, and recovery—not a claim that one model family always wins.",
+  "url": "https://blog.bhaveshjain.com/production-time-series-2026.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/production-time-series-2026.html"
+  },
+  "datePublished": "2026-03-26",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/production-time-series-2026.png",
+  "keywords": [
+    "time-series",
+    "MLOps"
+  ],
+  "wordCount": 574,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+    <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="ai5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fcb045"/><stop offset="100%" stop-color="#00d9f5"/></linearGradient>
+      </defs>
+      <rect width="1200" height="525" fill="#0a0a18"/>
+      <g stroke="#ffffff" stroke-opacity="0.06">
+        <line x1="60" y1="150" x2="1140" y2="150"/><line x1="60" y1="270" x2="1140" y2="270"/><line x1="60" y1="390" x2="1140" y2="390"/>
+      </g>
+      <path d="M80 350 L160 320 L240 360 L320 280 L400 310 L480 260 L560 240 L640 210 L720 230 L800 180 L880 200 L960 150 L1040 170 L1120 130"
+            stroke="url(#ai5)" stroke-width="2.5" fill="none"/>
+      <path d="M880 200 L960 150 L1040 170 L1120 130"
+            stroke="url(#ai5)" stroke-width="2.5" fill="none" stroke-dasharray="6 6" opacity="0.7"/>
+      <text x="60" y="490" font-family="JetBrains Mono, monospace" font-size="14" fill="#a0a0c0">// useful forecasts need an operating plan</text>
+    </svg>
+  </div>
+<div class="post-meta"><time datetime="2026-03-26">2026-03-26</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#time-series">#time-series</a> <a class="tag" href="tags.html#mlops">#MLOps</a></div>
+<h1>Production Time Series in 2026: The Boring Tools That Win</h1>
+<div class="post-body">
+<p>A forecasting system has at least two jobs: produce useful estimates and continue behaving intelligibly when its data or environment changes. Model selection addresses part of the first job. The second depends on fairly ordinary engineering.</p>
+<p>The title is not a ranking of forecasting models in 2026. It is an argument for the durable parts of a production workflow: explicit baselines, reproducible evaluation, predictable delivery, and an owner for exceptions. A new architecture still has to earn its place within that workflow.</p>
+<h2>Begin with a small, inspectable comparison</h2>
+<p>Use a baseline that reflects the series: a last-observation forecast, a seasonal-naive method, or an established planning rule. Add candidates when their assumptions fit the task and the available data. The relevant question is whether a candidate improves the decision at a reasonable total cost.</p>
+<p>Score each candidate at the same forecast origins and horizons. Keep preprocessing and feature availability consistent. A model trained with more recent data is not a clean comparison with a baseline deprived of that information.</p>
+<h2>Write the temporal contract</h2>
+<p>Specify the observation frequency, timezone, aggregation rule, and treatment of missing periods. A missing record is not always a zero. A delayed update is not always a demand collapse. Revision policies also matter when historical figures change after publication.</p>
+<p>For an illustrative weekly demand service, the contract might say that each region is reported in the same business timezone and that a forecast is withheld if the latest aggregation has not completed. The exact policy depends on the workflow; the important part is making it explicit.</p>
+<h2>Evaluate the uncertainty you publish</h2>
+<p>Prediction intervals express a range for a future observation under modeling assumptions. They are not a promise that the future will resemble the past. Check empirical coverage on held-out forecast origins, by horizon and relevant segment, and inspect interval width alongside coverage.</p>
+<p>If the intervals become too wide to guide the decision, that is useful product information. It may call for a shorter horizon, a different decision process, or manual review rather than a more confident-looking chart.</p>
+<h2>Design for late data and broken jobs</h2>
+<p>Choose an explicit fallback: a last valid forecast labeled with its issue date, a simple baseline, or an unavailable state. Avoid quietly substituting outputs whose meaning differs from the normal prediction. Consumers need to know when the operating mode changes.</p>
+<p>Keep the data snapshot, feature definitions, model version, and forecast cutoff together. That makes an unexpected output reproducible. A model artifact without the data and transformation context is often insufficient to explain a historical decision.</p>
+<h2>Monitor more than the error</h2>
+<p>Track freshness, completeness, forecast delivery, and downstream acceptance. Forecast error may arrive only after the target period ends, while an ingestion failure needs attention immediately. A shift in the input distribution is a diagnostic signal, not proof that the forecast has become inaccurate.</p>
+<p>Write an action for each alert. If no one knows whether to pause publishing, switch to a baseline, or inspect a feed, the alert is merely a notification. Retraining should follow evidence and validation rather than fire automatically whenever a distribution changes.</p>
+<p>The strongest production stack is not necessarily the smallest or the newest. It is the one whose additional complexity buys a measurable improvement and whose failures have a practiced response. Continue with <a href="ml-monitoring-after-launch.html">monitoring after launch</a> and <a href="forecasting-air-cargo.html">forecasting around operational decisions</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://otexts.com/fpp3/tscv.html">Forecasting: Principles and Practice — Time series cross-validation</a></li>
+<li><a href="https://otexts.com/fpp3/prediction-intervals.html">Forecasting: Principles and Practice — Prediction intervals</a></li>
+<li><a href="https://sre.google/sre-book/monitoring-distributed-systems/">Google SRE: Monitoring Distributed Systems</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="patent-signal.html"><span class="pn-label">← Previous article</span><span class="pn-title">The Patent Signal: What Filings Quietly Reveal</span></a>
+  <a class="post-nav-link next" href="designing-for-10-year-question.html"><span class="pn-label">Next article →</span><span class="pn-title">Designing for the 10-Year Question</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Choose a small set of outcome, diagnostic, and guardrail measures with explicit denominators and a clear reason to act." />
+<title>Product Metrics That Change a Decision — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/product-metrics-decisions.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Product Metrics That Change a Decision — Bhavesh Jain" />
+<meta property="og:description" content="Choose a small set of outcome, diagnostic, and guardrail measures with explicit denominators and a clear reason to act." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/product-metrics-decisions.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/product-metrics-decisions.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Product Metrics That Change a Decision — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/product-metrics-decisions.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Product Metrics That Change a Decision",
+  "description": "Choose a small set of outcome, diagnostic, and guardrail measures with explicit denominators and a clear reason to act.",
+  "url": "https://blog.bhaveshjain.com/product-metrics-decisions.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/product-metrics-decisions.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/product-metrics-decisions.png",
+  "keywords": [
+    "metrics",
+    "product discovery"
+  ],
+  "wordCount": 590,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#metrics">#metrics</a> <a class="tag" href="tags.html#product-discovery">#product discovery</a></div>
+<h1>Product Metrics That Change a Decision</h1>
+<div class="post-body">
+<p>A metric becomes useful when a team knows what it would do differently if the number changed. Without that connection, a dashboard can become a monthly ritual: the line moved, somebody supplied a story, and the roadmap stayed the same.</p>
+<p>I would begin with the product's intended outcome and work backward to the evidence needed for a decision. The result is usually a smaller, more interpretable set of measures than a collection of every event the application can emit.</p>
+<h2>Separate activity from completion</h2>
+<p>Imagine a hypothetical self-service export feature. Export-button clicks describe activity. A usable file delivered to the right user describes a service outcome. A successful downstream analysis may be the broader user outcome, though it is harder for the product to observe directly.</p>
+<p>Name those boundaries rather than pretending the easiest event is the final goal. A rise in clicks can mean growing use, repeated failures, or a confusing interface. The same line can support incompatible stories unless the surrounding behavior is measured.</p>
+<h2>Build a small metric hierarchy</h2>
+<p>Use an outcome measure to describe whether the task succeeds. Use diagnostic measures to locate friction, such as invalid requests, queue time, or failed downloads. Add guardrails for consequences that should not deteriorate, such as incorrect data exposure or support burden.</p>
+<p>For the export example, the core measure might be the fraction of eligible requests that produce a retrievable, valid file. A diagnostic might be time spent waiting for generation. A guardrail might track requests that include data outside the user's authorized scope, with any occurrence requiring immediate investigation rather than averaging it away.</p>
+<h2>Write the denominator in plain language</h2>
+<p>Does completion mean completed requests divided by all initiated requests, all valid requests, or all sessions that viewed the page? Each definition answers a different question. State the eligibility rule and keep excluded cases visible.</p>
+<p>Define the observation window too. A request that completes tomorrow may look like a failure in today's snapshot. Use mature cohorts when comparing outcomes, and distinguish pending work from completed failures.</p>
+<h2>Check instrumentation before interpreting behavior</h2>
+<p>Verify event names, duplicate handling, identifiers, and the sequence that connects initiation to completion. An event emitted on button click is not evidence that the server accepted the request. An event emitted before a database transaction commits may overcount success.</p>
+<p>Test representative flows, including retries and failures. When instrumentation changes, annotate the break in the series. A measurement change should not be celebrated as a product improvement.</p>
+<h2>Choose a review question, not only a target</h2>
+<p>A review might ask whether failed exports are concentrated in one file type, whether users return because the first file was unusable, or whether a faster generation path increases support work. That points the team toward a specific investigation.</p>
+<p>Targets can focus effort, but a target without a failure analysis can encourage local optimization. Faster average completion may be achieved by rejecting difficult requests. Pair the outcome with coverage and the experience of excluded users.</p>
+<h2>Do not infer causality from every movement</h2>
+<p>A before-and-after change may reflect seasonality, a different user mix, or an unrelated release. Use an appropriate experiment when causal attribution matters and the conditions support one. Otherwise label the observation honestly and combine it with other evidence.</p>
+<p>A useful metrics review ends with a decision, an owner, and a reason. It may conclude that more evidence is needed. See <a href="experiment-small-samples.html">working with limited experimental traffic</a> and <a href="cost-of-average-accuracy.html">reading aggregate model metrics carefully</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.gov.uk/service-manual/measuring-success/how-to-set-performance-metrics-for-your-service">GOV.UK Service Manual: How to set performance metrics for your service</a></li>
+<li><a href="https://sre.google/sre-book/monitoring-distributed-systems/">Google SRE: Monitoring Distributed Systems</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="product-feedback-prioritization.html"><span class="pn-label">← Previous article</span><span class="pn-title">Turning Product Feedback into Decisions, Not Just Tickets</span></a>
+  <a class="post-nav-link next" href="prompt-changes-production.html"><span class="pn-label">Next article →</span><span class="pn-title">Treat Prompt Changes Like Software Releases</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

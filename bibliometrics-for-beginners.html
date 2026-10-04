@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Use publication and citation data to investigate research activity while accounting for coverage, age, field differences, and naming drift." />
+<title>Bibliometrics for Beginners: Reading Research Signals Carefully — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/bibliometrics-for-beginners.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-04-15" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Bibliometrics for Beginners: Reading Research Signals Carefully — Bhavesh Jain" />
+<meta property="og:description" content="Use publication and citation data to investigate research activity while accounting for coverage, age, field differences, and naming drift." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/bibliometrics-for-beginners.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/bibliometrics-for-beginners.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Bibliometrics for Beginners: Reading Research Signals Carefully — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/bibliometrics-for-beginners.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Bibliometrics for Beginners: Reading Research Signals Carefully",
+  "description": "Use publication and citation data to investigate research activity while accounting for coverage, age, field differences, and naming drift.",
+  "url": "https://blog.bhaveshjain.com/bibliometrics-for-beginners.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/bibliometrics-for-beginners.html"
+  },
+  "datePublished": "2026-04-15",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/bibliometrics-for-beginners.png",
+  "keywords": [
+    "bibliometrics",
+    "foresight"
+  ],
+  "wordCount": 566,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Strategic foresight"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#bef264" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-04-15">2026-04-15</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#bibliometrics">#bibliometrics</a> <a class="tag" href="tags.html#foresight">#foresight</a></div>
+<h1>Bibliometrics for Beginners: Reading Research Signals Carefully</h1>
+<div class="post-body">
+<p>Publication and citation data can help map a research area: who is working on it, which ideas connect, and how the visible activity changes. They cannot, on their own, tell us which technology will succeed commercially or when adoption will happen.</p>
+<p>That boundary makes bibliometrics more useful, not less. Instead of treating a rising curve as a prediction, treat it as a structured question that deserves closer reading.</p>
+<h2>Define the corpus before counting it</h2>
+<p>A search query is part of the measurement instrument. Record its terms, filters, data source, and collection date. Test it against papers you expect to include and papers you expect to exclude. A keyword that becomes fashionable can change the result even when the underlying research activity changes much less.</p>
+<p>Include plausible historical terminology and inspect whether broad terms introduce unrelated work. Embeddings may help discover vocabulary, but they also need validation. They are not a substitute for checking what is actually in the sample.</p>
+<h2>Publication volume describes visible activity</h2>
+<p>Count publications over comparable time windows and explain what kinds of documents are included. A preprint and its later journal article may describe the same contribution. Deduplication choices can materially change the curve.</p>
+<p>Investigate changes in source coverage and indexing delays before interpreting a surge or a decline. Comparing the first few months of one year with the full previous year is especially easy to misread. Show absolute counts alongside growth rates so a small denominator remains visible.</p>
+<h2>Citations need time and context</h2>
+<p>An older paper has had more opportunity to accumulate citations than a recent paper. Citation practices also differ across fields and document types. Raw counts therefore need context before they are used to compare influence.</p>
+<p>For a focused investigation, compare similar publication cohorts and inspect the citing work. A citation may be supportive, methodological, critical, or merely contextual. None of those meanings is captured by the count alone. Research attention is not the same measure as technical quality or deployment readiness.</p>
+<h2>Networks suggest where to look next</h2>
+<p>Co-authorship, institutional participation, and references between topic clusters can reveal useful connections. A newly connected group may deserve expert review. It does not automatically demonstrate commercialization or the formation of a new field.</p>
+<p>Organization names and author identities need care. Mergers, name variants, and ambiguous affiliations can create apparent changes that are really entity-resolution errors. Check a sample of the important nodes before turning a network picture into a strategic conclusion.</p>
+<h2>A manageable first exercise</h2>
+<ol>
+<li>Choose a narrow question, such as how a particular inspection method is being evaluated.</li>
+<li>Build a documented query and inspect a sample for relevance.</li>
+<li>Deduplicate the records and chart comparable publication cohorts.</li>
+<li>Read representative papers, outliers, and the work that connects clusters.</li>
+<li>Write what the evidence suggests, what it does not establish, and what additional source would help.</li>
+</ol>
+<p>OpenAlex is one possible scholarly-data source; the linked description explains its scope and entity model. Before automating against any provider, check its current documentation, coverage, and access terms. Do not assume different databases describe an identical research universe.</p>
+<p>The useful output is an inspectable map with limitations, not a league table pretending to forecast the future. Combine it with <a href="patent-signal.html">other evidence types</a> and preserve those distinctions in <a href="trend-radar-with-llms.html">a source-led trend radar</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://arxiv.org/abs/2205.01833">Priem, Piwowar and Orr: OpenAlex, a fully-open index of scholarly works, authors, venues, institutions, and concepts</a></li>
+<li><a href="https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts">UK Government: Futures Toolkit for policy-makers and analysts</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="rag-not-silver-bullet.html"><span class="pn-label">← Previous article</span><span class="pn-title">Why RAG Isn&#x27;t a Silver Bullet</span></a>
+  <a class="post-nav-link next" href="multi-agent-eval-harnesses.html"><span class="pn-label">Next article →</span><span class="pn-title">Notes from Building Multi-Agent Eval Harnesses</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

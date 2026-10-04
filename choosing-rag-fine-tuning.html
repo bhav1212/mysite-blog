@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Choose retrieval, prompt changes, fine-tuning, or a deterministic workflow by diagnosing the task failure—not by following an architecture trend." />
+<title>RAG, Fine-Tuning, or Neither? Start with the Failure — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/choosing-rag-fine-tuning.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="RAG, Fine-Tuning, or Neither? Start with the Failure — Bhavesh Jain" />
+<meta property="og:description" content="Choose retrieval, prompt changes, fine-tuning, or a deterministic workflow by diagnosing the task failure—not by following an architecture trend." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/choosing-rag-fine-tuning.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/choosing-rag-fine-tuning.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="RAG, Fine-Tuning, or Neither? Start with the Failure — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/choosing-rag-fine-tuning.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RAG, Fine-Tuning, or Neither? Start with the Failure",
+  "description": "Choose retrieval, prompt changes, fine-tuning, or a deterministic workflow by diagnosing the task failure—not by following an architecture trend.",
+  "url": "https://blog.bhaveshjain.com/choosing-rag-fine-tuning.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/choosing-rag-fine-tuning.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/choosing-rag-fine-tuning.png",
+  "keywords": [
+    "RAG",
+    "LLMs"
+  ],
+  "wordCount": 582,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#rag">#RAG</a> <a class="tag" href="tags.html#llms">#LLMs</a></div>
+<h1>RAG, Fine-Tuning, or Neither? Start with the Failure</h1>
+<div class="post-body">
+<p>“Should we use RAG or fine-tune?” sounds like an architecture question. In practice, it is several diagnostic questions compressed into one. Is the system missing information? Is it applying the wrong behavior? Is the task constrained enough that generation is unnecessary?</p>
+<p>I would begin with a small set of failed tasks and label what went wrong. Selecting a technique before doing that can produce a more elaborate system with the same underlying defect.</p>
+<h2>When the evidence is missing</h2>
+<p>Suppose a hypothetical support assistant answers from an old product description because the current documentation is not in its context. Retrieval is a candidate intervention: locate the right material and supply it at answer time. The evaluation then needs to test document coverage, permissions, passage relevance, and faithful use of the evidence.</p>
+<p>Do not jump directly to a vector database. Exact identifiers may suit structured lookup or keyword search. A small, bounded reference set may fit directly in context. Compare approaches with the real information need rather than treating one retrieval implementation as the definition of RAG.</p>
+<h2>When the behavior is inconsistent</h2>
+<p>A different failure occurs when the model has the necessary information but repeatedly uses the wrong format, ignores a task boundary, or applies a classification policy inconsistently. Clarifying the instructions, adding representative examples, or moving constraints into code may be the first things to test.</p>
+<p>Fine-tuning becomes a candidate when there is a repeatable behavior to learn, suitable training examples, and an evaluation that can distinguish real improvement from memorization. It brings a training-data lifecycle and a new versioned artifact. It is not a shortcut around defining the task.</p>
+<h2>Knowledge and behavior are not a clean wall</h2>
+<p>It is useful to distinguish access to evidence from learned behavior, but the techniques can interact. A fine-tuned model can still use retrieval, and retrieval quality can depend on model behavior. The original RAG work itself combines retrieval with trained generation rather than presenting a universal either-or choice.</p>
+<p>For a product team, the important question is which change addresses the measured failure with the least additional burden. A combination may be justified, but it should emerge from evidence rather than from a checklist of fashionable components.</p>
+<h2>Sometimes the answer is a form or a rule</h2>
+<p>If the task is checking whether a required field is present or fetching a known record, a deterministic path may be easier to test and explain. A model can help interpret a messy request at the boundary without becoming the authority for the underlying business rule.</p>
+<p>For example, a system might extract a product identifier from free text, validate it against a catalogue, and return the catalogue's availability. It should not ask a model to invent an availability estimate when the lookup fails.</p>
+<h2>Run an intervention-sized comparison</h2>
+<ul>
+<li>Keep the task set and success criteria stable.</li>
+<li>Change one important layer at a time where feasible.</li>
+<li>Compare against the current workflow, not only another model.</li>
+<li>Inspect new failure types introduced by the intervention.</li>
+<li>Include latency, review effort, and maintenance in the decision.</li>
+</ul>
+<p>Record what would invalidate the choice: changing source material, a new language, a different permission model, or a workload outside the training examples. An architecture decision is a response to a particular task and operating context, not a permanent declaration of allegiance.</p>
+<p>Read <a href="rag-not-silver-bullet.html">the remaining failure modes in retrieval systems</a> and <a href="ai-feature-without-llm.html">how to build a useful non-LLM baseline</a> before adding another layer.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://arxiv.org/abs/2005.11401">Lewis et al.: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a></li>
+<li><a href="https://developers.google.com/machine-learning/guides/rules-of-ml">Google: Rules of Machine Learning</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="build-vs-buy.html"><span class="pn-label">← Previous article</span><span class="pn-title">Build Versus Buy Is an Ownership Decision</span></a>
+  <a class="post-nav-link next" href="data-contracts-ml.html"><span class="pn-label">Next article →</span><span class="pn-title">Data Contracts: The Less Glamorous Side of Reliable ML</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A useful prototype tests an assumption. A usable product also needs ownership, permissions, recovery, observability, and an honest delivery path." />
+<title>From Prototype to Product: The Work Around the Demo — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/prototype-to-production.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="From Prototype to Product: The Work Around the Demo — Bhavesh Jain" />
+<meta property="og:description" content="A useful prototype tests an assumption. A usable product also needs ownership, permissions, recovery, observability, and an honest delivery path." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/prototype-to-production.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/prototype-to-production.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="From Prototype to Product: The Work Around the Demo — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/prototype-to-production.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "From Prototype to Product: The Work Around the Demo",
+  "description": "A useful prototype tests an assumption. A usable product also needs ownership, permissions, recovery, observability, and an honest delivery path.",
+  "url": "https://blog.bhaveshjain.com/prototype-to-production.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/prototype-to-production.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/prototype-to-production.png",
+  "keywords": [
+    "product delivery",
+    "engineering"
+  ],
+  "wordCount": 589,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#product-delivery">#product delivery</a> <a class="tag" href="tags.html#engineering">#engineering</a></div>
+<h1>From Prototype to Product: The Work Around the Demo</h1>
+<div class="post-body">
+<p>A prototype succeeds when it answers a question. Can a user understand this flow? Can a model extract the needed field? Can two systems exchange the required data? A production product has a different obligation: it must keep serving the task under conditions the demonstration did not cover.</p>
+<p>The mistake is not building a rough prototype. Roughness can be exactly right for learning. The mistake is letting the prototype's assumptions become invisible as more people begin to depend on it.</p>
+<h2>List what the demonstration borrowed</h2>
+<p>Perhaps the demo used a clean dataset, an administrator account, a developer ready to restart the process, and users who already understood the domain. Those are supporting conditions, not incidental details.</p>
+<p>Write them down. Then ask which will be true for ordinary users. A tool that works only because its creator is watching is not ready for the same operating promise as a self-service product.</p>
+<h2>Follow one task all the way through</h2>
+<p>Take an illustrative report-export feature. The prototype proves that the report can be generated. The product also needs to know who may request it, which records they may access, how long generation takes, where the file is delivered, and what happens if generation fails halfway.</p>
+<p>Follow the awkward states: duplicate clicks, expired sessions, empty results, a dependency timeout, and a user returning after leaving the page. These are part of the workflow, not rare exceptions that can be deferred indefinitely.</p>
+<h2>Make delivery repeatable</h2>
+<p>A release should identify what changed and give the team a way to validate it before publishing. Keep configuration and secrets separate from public artifacts. Make backups or rollback mechanisms appropriate to the system's state and its consequences.</p>
+<p>A static site offers a small, concrete example. Publishing source directories directly can expose helper files or miss required assets. A staged build with an explicit public-file boundary, link validation, and a recovery path turns a manual copy operation into a more controlled release. Larger systems need different mechanisms, but the distinction is the same.</p>
+<h2>Assign ownership to failure modes</h2>
+<p>Who responds if a job stops? Who can change a data contract? Who knows whether a surprising output is a model problem or a source problem? An architecture diagram without these responsibilities can look complete while leaving incidents ownerless.</p>
+<p>Start with a concise operating guide: normal behavior, important alerts, immediate recovery actions, and escalation. Exercise at least one failure in a safe environment. A rollback that has never been tried is an assumption rather than demonstrated capability.</p>
+<h2>Do not harden everything equally</h2>
+<p>Production readiness should reflect scope and consequence. A small internal tool with a clearly stated limitation does not need the same availability commitment as a service controlling external transactions. Conversely, “internal” is not an excuse to ignore sensitive data or destructive actions.</p>
+<p>Prioritize the controls needed to make the product's actual promise honest. Avoid building a large platform before a narrow workflow has value, but do not call unowned risk an MVP feature.</p>
+<h2>Preserve the ability to learn</h2>
+<p>Instrumentation should show whether the task completes, where users need help, and which exceptions consume time. Keep a route for feedback and a way to distinguish a product problem from a training or documentation problem.</p>
+<p>The transition to production is not the moment experimentation ends. It is the point where experiments must coexist with responsibility to users. Read <a href="mvp-one-workflow.html">how to keep the first release narrow</a> and <a href="build-vs-buy.html">how to decide which responsibilities to own</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works">GOV.UK Service Manual: How the alpha phase works</a></li>
+<li><a href="https://sre.google/workbook/canarying-releases/">Google SRE Workbook: Canarying Releases</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="prompt-changes-production.html"><span class="pn-label">← Previous article</span><span class="pn-title">Treat Prompt Changes Like Software Releases</span></a>
+  <a class="post-nav-link next" href="useful-uncertainty.html"><span class="pn-label">Next article →</span><span class="pn-title">When an AI Product Should Say “I Don&#x27;t Know”</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

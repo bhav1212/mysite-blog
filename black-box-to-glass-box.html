@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Make AI systems inspectable with source evidence, action histories, and recovery controls—not a polished story about hidden reasoning." />
+<title>From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/black-box-to-glass-box.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-12" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work — Bhavesh Jain" />
+<meta property="og:description" content="Make AI systems inspectable with source evidence, action histories, and recovery controls—not a polished story about hidden reasoning." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/black-box-to-glass-box.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/black-box-to-glass-box.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/black-box-to-glass-box.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work",
+  "description": "Make AI systems inspectable with source evidence, action histories, and recovery controls—not a polished story about hidden reasoning.",
+  "url": "https://blog.bhaveshjain.com/black-box-to-glass-box.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/black-box-to-glass-box.html"
+  },
+  "datePublished": "2026-05-12",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/black-box-to-glass-box.png",
+  "keywords": [
+    "multi-agent",
+    "human-AI interaction"
+  ],
+  "wordCount": 571,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+    <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="g1a" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff6b9d"/>
+          <stop offset="50%" stop-color="#c471ed"/>
+          <stop offset="100%" stop-color="#6a82fb"/>
+        </linearGradient>
+        <radialGradient id="g1b" cx="0.5" cy="0.5" r="0.6">
+          <stop offset="0%" stop-color="#00d9f5" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#00d9f5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1200" height="525" fill="#0a0a18"/>
+      <rect width="1200" height="525" fill="url(#g1b)" opacity="0.5"/>
+      <!-- Network of agents -->
+      <g stroke="url(#g1a)" stroke-width="1.2" opacity="0.5" fill="none">
+        <line x1="300" y1="180" x2="600" y2="262"/>
+        <line x1="900" y1="180" x2="600" y2="262"/>
+        <line x1="300" y1="380" x2="600" y2="262"/>
+        <line x1="900" y1="380" x2="600" y2="262"/>
+        <line x1="150" y1="262" x2="600" y2="262"/>
+        <line x1="1050" y1="262" x2="600" y2="262"/>
+      </g>
+      <g fill="url(#g1a)">
+        <circle cx="300" cy="180" r="22" opacity="0.55"/>
+        <circle cx="900" cy="180" r="22" opacity="0.55"/>
+        <circle cx="300" cy="380" r="22" opacity="0.55"/>
+        <circle cx="900" cy="380" r="22" opacity="0.55"/>
+        <circle cx="150" cy="262" r="18" opacity="0.55"/>
+        <circle cx="1050" cy="262" r="18" opacity="0.55"/>
+      </g>
+      <!-- Central glowing "glass" node -->
+      <circle cx="600" cy="262" r="80" fill="none" stroke="#00d9f5" stroke-width="2" opacity="0.7"/>
+      <circle cx="600" cy="262" r="55" fill="url(#g1a)" opacity="0.9"/>
+      <circle cx="600" cy="262" r="55" fill="#ffffff" opacity="0.15"/>
+      <text x="600" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="20" fill="#ffffff">glass</text>
+      <!-- Title hint text -->
+      <text x="60" y="490" font-family="JetBrains Mono, monospace" font-size="14" fill="#a0a0c0">// evidence → inspection → informed action</text>
+    </svg>
+  </div>
+<div class="post-meta"><time datetime="2026-05-12">2026-05-12</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#multi-agent">#multi-agent</a> <a class="tag" href="tags.html#human-ai-interaction">#human-AI interaction</a></div>
+<h1>From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work</h1>
+<div class="post-body">
+<p>An assistant recommends an action. The user asks why. A longer explanation appears, but the underlying question remains unanswered: what information did the system use, what did it actually do, and can I correct it? More generated prose is not necessarily more transparency.</p>
+<p>For a multi-agent product, I think of a glass box as an inspectable workflow. It should expose evidence and consequential actions without implying that a generated explanation is a faithful record of the model's internal reasoning. This is a design argument, not a report of a user study.</p>
+<h2>Start with evidence the user can verify</h2>
+<p>For a research assistant, an evidence view might show the document title, relevant passage, publication date, and retrieval time. Those details answer different questions. Publication date describes the source; retrieval time says when the application accessed it. Neither proves that the source is authoritative or current for this decision.</p>
+<p>Attach evidence to the claim it supports. A bibliography under a long answer forces the reader to reconstruct that relationship. If two sources disagree, preserve the disagreement rather than hiding it behind a confident synthesis. If a source cannot be shared with the current user, the explanation must not leak its contents.</p>
+<h2>Separate actions from explanations</h2>
+<p>A useful execution history records which component ran, which tool it called, the relevant input and result, and whether the operation succeeded. An explanation can summarize that history, but the underlying structured events remain the source of truth.</p>
+<p>In a hypothetical supplier-research workflow, the visible sequence might be: searched the approved catalogue, retrieved three records, excluded one expired record, and drafted a comparison. That is more actionable than a paragraph saying the agents carefully considered all available evidence. It also makes a missing step easier to notice.</p>
+<h2>Show limits without inventing confidence</h2>
+<p>A model-generated confidence percentage can look more precise than the evidence justifies. Instead, expose observable conditions: one source is missing, a required field could not be verified, or two records conflict. These are not calibrated probabilities, and the interface should not present them as such.</p>
+<p>Where a measured confidence estimate is available, explain what was measured and on which population. Confidence about document classification is not automatically confidence about the final business recommendation. Different parts of the workflow can have different uncertainties.</p>
+<h2>Make detail progressive, not compulsory</h2>
+<p>The default view should help the user finish the task. A compact answer can include a few supporting sources and an obvious route to the activity history. Developers may need full diagnostic traces; end users usually need the subset that helps them verify, challenge, or recover.</p>
+<p>Do not expose secrets, private prompts, or unnecessary personal data in the name of transparency. Redaction, retention limits, and role-based access belong in the design of the trace system, not as cleanup after logs have accumulated.</p>
+<h2>Test whether the controls help</h2>
+<p>Give reviewers realistic tasks containing an incorrect recommendation or missing evidence. Observe whether they can find the issue, explain its consequence, and choose a safe next action. Measure correction and recovery, not merely whether people say the interface feels trustworthy.</p>
+<p>Transparency should support appropriate reliance, including the decision not to trust the answer. Pair this design with <a href="human-in-loop-workflows.html">a usable review workflow</a> and <a href="multi-agent-eval-harnesses.html">trace-level evaluation</a>. The goal is not a system that persuades people it is right; it is a system they can meaningfully inspect when it is wrong.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.microsoft.com/en-us/research/uploads/prod/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf">Microsoft Research: Guidelines for Human-AI Interaction</a></li>
+<li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building effective agents</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="useful-uncertainty.html"><span class="pn-label">← Previous article</span><span class="pn-title">When an AI Product Should Say “I Don&#x27;t Know”</span></a>
+  <a class="post-nav-link next" href="forecasting-air-cargo.html"><span class="pn-label">Next article →</span><span class="pn-title">What Air Cargo Forecasting Taught Me About Real-World ML</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

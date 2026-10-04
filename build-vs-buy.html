@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Compare the full operating responsibility of a capability, including integration, support, change, and exit—not just development effort against a subscription." />
+<title>Build Versus Buy Is an Ownership Decision — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/build-vs-buy.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Build Versus Buy Is an Ownership Decision — Bhavesh Jain" />
+<meta property="og:description" content="Compare the full operating responsibility of a capability, including integration, support, change, and exit—not just development effort against a subscription." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/build-vs-buy.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/build-vs-buy.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Build Versus Buy Is an Ownership Decision — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/build-vs-buy.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Build Versus Buy Is an Ownership Decision",
+  "description": "Compare the full operating responsibility of a capability, including integration, support, change, and exit—not just development effort against a subscription.",
+  "url": "https://blog.bhaveshjain.com/build-vs-buy.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/build-vs-buy.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/build-vs-buy.png",
+  "keywords": [
+    "engineering",
+    "product strategy"
+  ],
+  "wordCount": 607,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#engineering">#engineering</a> <a class="tag" href="tags.html#product-strategy">#product strategy</a></div>
+<h1>Build Versus Buy Is an Ownership Decision</h1>
+<div class="post-body">
+<p>A build-versus-buy discussion often begins with the wrong comparison: a subscription price on one side and a developer's estimate for a prototype on the other. Neither describes the full responsibility the team is taking on.</p>
+<p>I would frame the decision as a choice about ownership. Which capabilities should the team understand and control deeply? Which responsibilities can a supplier handle well? What remains the team's job even after the purchase?</p>
+<h2>Define the capability at the right boundary</h2>
+<p>Consider an illustrative notification service. Buying message delivery does not decide when a message should be sent, whether the recipient is authorized to receive it, how preferences work, or how the product handles a failed delivery. Those responsibilities can remain with the product team.</p>
+<p>Likewise, building a small sender does not reproduce a mature delivery operation. Compare equivalent scopes. If one option includes monitoring, support, and recovery while the other includes only a successful API call, the decision is not yet well framed.</p>
+<h2>Compare the lifecycle, not the first milestone</h2>
+<p>Estimate integration, testing, documentation, upgrades, incident response, and the time needed to investigate edge cases. Include the opportunity cost of work displaced by the choice. For a purchased service, include configuration, vendor changes, usage variability, and the effort required to understand its failure modes.</p>
+<p>Use ranges where uncertainty is high rather than a single precise-looking total. The purpose is to find assumptions that could change the decision, not to make a speculative spreadsheet appear exact.</p>
+<h2>Distinguish differentiation from control needs</h2>
+<p>A capability can be strategically distinctive, operationally critical, both, or neither. A critical component does not automatically need to be built internally; a distinctive user experience does not require owning every layer beneath it.</p>
+<p>Ask which decisions require direct control: data location, response behavior, auditability, integration timing, or the ability to recover independently. Then compare whether each option can satisfy those needs under realistic operating conditions.</p>
+<h2>Run a bounded integration trial</h2>
+<p>Test representative cases, including failures, before committing deeply. For the notification example, examine invalid recipients, duplicate requests, rate limits, delayed delivery, and the route from an external error to a useful product status.</p>
+<p>Check access boundaries and data handling with the people accountable for them. A supplier's feature list is not evidence that the configured integration meets the product's requirements. The trial should produce a small operating picture, not just a successful demonstration.</p>
+<h2>Price the exit without overbuilding it</h2>
+<p>Find out whether data and configuration can be exported in a usable form, what happens to in-progress work, and which assumptions are specific to the supplier. Define the signals that would justify changing the arrangement.</p>
+<p>It may be worth keeping a narrow interface around an external dependency. It may not be worth building a universal abstraction for every hypothetical replacement. Flexibility has a maintenance cost; preserve the options that matter to plausible decisions.</p>
+<h2>Keep a decision record and a review trigger</h2>
+<p>Record the scope, alternatives, important assumptions, chosen owner responsibilities, and reasons for the decision. Add concrete review triggers: a required capability changes, usage moves outside the expected range, or the team can no longer meet its operating commitment.</p>
+<p>The same approach applies to model APIs and AI tooling. Buying a model does not outsource evaluation or responsibility for the user workflow. Building one does not guarantee control over the data and dependencies around it.</p>
+<p>The useful question is not whether building or buying is more impressive. It is which arrangement lets the team deliver and sustain the capability it has actually promised. Continue with <a href="prototype-to-production.html">production responsibility</a> and <a href="designing-for-10-year-question.html">preserving options under uncertainty</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://research.google/pubs/hidden-technical-debt-in-machine-learning-systems/">Google Research: Hidden Technical Debt in Machine Learning Systems</a></li>
+<li><a href="https://sre.google/sre-book/monitoring-distributed-systems/">Google SRE: Monitoring Distributed Systems</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="ai-latency-budget.html"><span class="pn-label">← Previous article</span><span class="pn-title">Designing a Latency Budget for AI Features</span></a>
+  <a class="post-nav-link next" href="choosing-rag-fine-tuning.html"><span class="pn-label">Next article →</span><span class="pn-title">RAG, Fine-Tuning, or Neither? Start with the Failure</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

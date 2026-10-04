@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Version prompts with their dependencies, evaluate changed behavior, and use controlled rollouts and rollback paths instead of editing production instructions in place." />
+<title>Treat Prompt Changes Like Software Releases — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/prompt-changes-production.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Treat Prompt Changes Like Software Releases — Bhavesh Jain" />
+<meta property="og:description" content="Version prompts with their dependencies, evaluate changed behavior, and use controlled rollouts and rollback paths instead of editing production instructions in place." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/prompt-changes-production.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/prompt-changes-production.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Treat Prompt Changes Like Software Releases — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/prompt-changes-production.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Treat Prompt Changes Like Software Releases",
+  "description": "Version prompts with their dependencies, evaluate changed behavior, and use controlled rollouts and rollback paths instead of editing production instructions in place.",
+  "url": "https://blog.bhaveshjain.com/prompt-changes-production.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/prompt-changes-production.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/prompt-changes-production.png",
+  "keywords": [
+    "LLMs",
+    "MLOps",
+    "evaluation"
+  ],
+  "wordCount": 564,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#llms">#LLMs</a> <a class="tag" href="tags.html#mlops">#MLOps</a> <a class="tag" href="tags.html#evaluation">#evaluation</a></div>
+<h1>Treat Prompt Changes Like Software Releases</h1>
+<div class="post-body">
+<p>A prompt edit can look harmless in a code review. One sentence becomes shorter; another gains an example. Yet the change can alter which tools the application calls, when it refuses a request, and what it treats as sufficient evidence.</p>
+<p>I would therefore treat a production prompt as part of a release artifact. Not because prose should become bureaucratic, but because the application behavior can change even when its surrounding code does not.</p>
+<h2>Version the effective configuration</h2>
+<p>The prompt file is only part of the input. The effective configuration may include model identifiers, generation parameters, tool schemas, retrieval settings, response schemas, and the order of assembled context. Keep a record of those dependencies with the release.</p>
+<p>Where a provider offers a fixed model version, record the actual version used. Where a dependency can change behind a stable name, acknowledge that limit and monitor for it. A reproducibility claim should describe the parts the team can actually control.</p>
+<h2>Describe the intended behavioral change</h2>
+<p>A useful change request says something like: when two approved sources disagree, the assistant should surface the conflict rather than choose one silently. It includes examples of the current failure and the desired response.</p>
+<p>This gives reviewers something more concrete than “improve the prompt.” It also identifies regression cases: ordinary requests with consistent evidence should still be answered directly, and a conflict must not become an excuse to refuse every difficult question.</p>
+<h2>Evaluate against a release-sized contract</h2>
+<p>Run deterministic checks for schemas, permitted actions, and required outputs. Use a separate judged or human-reviewed layer for semantic behavior. Compare the candidate and current release on the same cases, keeping changed examples available for inspection.</p>
+<p>A small overall improvement can hide a serious regression. Inspect important slices and non-negotiable constraints. For nondeterministic behavior, use repeat runs appropriate to the decision rather than accepting whichever single result supports the preferred outcome.</p>
+<h2>Shadowing and canaries answer different questions</h2>
+<p>In a shadow run, the candidate can process representative input without controlling the user-visible result. For an agent, tool writes must be isolated or disabled so that the shadow does not duplicate real actions. The comparison is useful only if its limitations are understood.</p>
+<p>A canary rollout exposes a limited portion of actual use to the candidate. It needs an assignment method, observation window, guardrails, and an owner who can stop it. Low exposure reduces the scope of a problem; it does not make an unsafe action acceptable.</p>
+<h2>Rollback must include state</h2>
+<p>Restoring the previous prompt may not undo a message already sent or a record already changed. Separate reversible configuration from irreversible effects. Use explicit approval and idempotency controls where actions can affect external systems.</p>
+<p>Think about in-progress sessions and cached answers too. A conversation that began under one configuration may contain assumptions that no longer hold under another. Decide whether to pin the session, restart the workflow, or make a controlled transition.</p>
+<h2>Keep a short release record</h2>
+<p>The record should identify the configuration, intended change, evaluation results, rollout conditions, and rollback procedure. After release, add observed incidents and surprising cases to the development corpus, while preserving an independent holdout for future decisions.</p>
+<p>This is ordinary release discipline applied to a probabilistic component. The prompt remains easy to edit; the behavior becomes harder to change invisibly. Pair it with <a href="how-to-evaluate-llm-apps.html">task-based evaluations</a> and <a href="ml-monitoring-after-launch.html">post-launch monitoring</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://sre.google/workbook/canarying-releases/">Google SRE Workbook: Canarying Releases</a></li>
+<li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building effective agents</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="product-metrics-decisions.html"><span class="pn-label">← Previous article</span><span class="pn-title">Product Metrics That Change a Decision</span></a>
+  <a class="post-nav-link next" href="prototype-to-production.html"><span class="pn-label">Next article →</span><span class="pn-title">From Prototype to Product: The Work Around the Demo</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

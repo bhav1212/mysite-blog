@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Build evaluation around user tasks, separate development from holdout data, and make release decisions from evidence rather than a single score." />
+<title>How to Actually Evaluate an LLM Application — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/how-to-evaluate-llm-apps.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-04-28" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="How to Actually Evaluate an LLM Application — Bhavesh Jain" />
+<meta property="og:description" content="Build evaluation around user tasks, separate development from holdout data, and make release decisions from evidence rather than a single score." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/how-to-evaluate-llm-apps.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/how-to-evaluate-llm-apps.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="How to Actually Evaluate an LLM Application — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/how-to-evaluate-llm-apps.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Actually Evaluate an LLM Application",
+  "description": "Build evaluation around user tasks, separate development from holdout data, and make release decisions from evidence rather than a single score.",
+  "url": "https://blog.bhaveshjain.com/how-to-evaluate-llm-apps.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/how-to-evaluate-llm-apps.html"
+  },
+  "datePublished": "2026-04-28",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/how-to-evaluate-llm-apps.png",
+  "keywords": [
+    "evaluation",
+    "LLMs"
+  ],
+  "wordCount": 566,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+    <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="ai1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b9d"/><stop offset="100%" stop-color="#6a82fb"/></linearGradient>
+      </defs>
+      <rect width="1200" height="525" fill="#0a0a18"/>
+      <g fill="none" stroke="url(#ai1)" stroke-width="1.2" opacity="0.5">
+        <path d="M100 400 Q300 200 600 280 T1100 180"/>
+        <path d="M100 200 Q300 350 600 320 T1100 380"/>
+      </g>
+      <g fill="url(#ai1)" opacity="0.7">
+        <circle cx="200" cy="350" r="6"/><circle cx="400" cy="250" r="9"/>
+        <circle cx="600" cy="290" r="14"/><circle cx="800" cy="220" r="7"/>
+        <circle cx="1000" cy="200" r="10"/><circle cx="300" cy="170" r="5"/>
+        <circle cx="700" cy="380" r="8"/>
+      </g>
+      <text x="60" y="490" font-family="JetBrains Mono, monospace" font-size="14" fill="#a0a0c0">// vibes are not evals</text>
+    </svg>
+  </div>
+<div class="post-meta"><time datetime="2026-04-28">2026-04-28</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#evaluation">#evaluation</a> <a class="tag" href="tags.html#llms">#LLMs</a></div>
+<h1>How to Actually Evaluate an LLM Application</h1>
+<div class="post-body">
+<p>A fluent answer is easy to demonstrate. A dependable application is harder to demonstrate because the unit of success is not a sentence: it is a user completing a task under real constraints. An answer can be well written, grounded in a document, and still be useless if it arrives too late or answers the wrong question.</p>
+<p>I would start an evaluation plan with a short product contract: who the application serves, what it is allowed to do, what evidence it needs, and what happens when it cannot finish. The evaluation should test that contract, not reward the model for sounding confident.</p>
+<h2>Define success before collecting scores</h2>
+<p>Consider a hypothetical assistant that answers employee policy questions. Success includes selecting the policy that applies to the employee, using the effective version, citing the relevant passage, and declining requests outside its permissions. Text similarity to a reference answer captures only a small part of that job.</p>
+<p>Separate checks into three groups: task outcome, system behavior, and operational cost. Outcome checks ask whether the response is correct and useful. Behavior checks cover authorization, tool use, and abstention. Operational checks cover latency, retries, and cost per completed task. Do not combine these into one number before looking at the individual failures.</p>
+<h2>Keep development and holdout cases separate</h2>
+<p>Use development cases while changing prompts and retrieval. Reserve a separate holdout for release decisions, and track how often it has been inspected. Repeatedly tuning against a supposedly frozen test set makes it another development set.</p>
+<p>Include representative requests, known incidents, ambiguous inputs, and cases the product should not answer. Where production examples are used, obtain the appropriate permission and remove unnecessary personal or confidential content. Synthetic cases are useful for coverage, but their realism needs checking against actual tasks.</p>
+<h2>Use the cheapest trustworthy check</h2>
+<p>Validate schemas, required fields, citation destinations, and forbidden actions in code. Use a model judge only for criteria that need interpretation, such as whether a summary preserves an important qualification. Give the judge a specific rubric and test it against independently reviewed examples.</p>
+<p>There is no universal number of human spot checks or judge-agreement percentage that makes an evaluation reliable. Review enough examples to expose consequential disagreements, and examine those disagreements by failure type. A judge that consistently misses one serious error can look reassuring in aggregate.</p>
+<h2>Make uncertainty visible in the report</h2>
+<p>Report denominators alongside rates. A perfect score on three examples is not equivalent to a perfect score on three hundred. Break down results by meaningful task, language, and document categories, while flagging slices too small to support a strong conclusion.</p>
+<p>For failures with different consequences, define weights with product and domain owners rather than choosing an impressive-looking multiplier. Keep the unweighted counts visible. A weighted average should not conceal an unauthorized action or another release-blocking event.</p>
+<h2>Turn the evaluation into a release decision</h2>
+<ul>
+<li>Compare the candidate with the current release on the same versioned cases.</li>
+<li>Show changed examples, not just the difference between two averages.</li>
+<li>Run repeat trials where nondeterminism could change the conclusion.</li>
+<li>Define acceptable regressions and non-negotiable failures before seeing the result.</li>
+<li>Connect offline checks to a limited rollout, monitoring, and a rollback owner.</li>
+</ul>
+<p>The useful deliverable is a defensible decision: ship, investigate, or stop. For the next step, see <a href="prompt-changes-production.html">how to release prompt changes</a> and <a href="cost-of-average-accuracy.html">why averages need context</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://developers.google.com/machine-learning/guides/rules-of-ml">Google: Rules of Machine Learning</a></li>
+<li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building effective agents</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="trend-radar-with-llms.html"><span class="pn-label">← Previous article</span><span class="pn-title">Building a Trend Radar with LLMs (Without Hallucinating the Future)</span></a>
+  <a class="post-nav-link next" href="trend-radar-in-boardroom.html"><span class="pn-label">Next article →</span><span class="pn-title">What a Trend Radar Actually Does in a Boardroom</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

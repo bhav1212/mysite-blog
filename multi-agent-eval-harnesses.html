@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Evaluate agent workflows at the task, trace, and side-effect levels, with reproducible fixtures and explicit limits on retries and tool use." />
+<title>Notes from Building Multi-Agent Eval Harnesses — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/multi-agent-eval-harnesses.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-04-12" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Notes from Building Multi-Agent Eval Harnesses — Bhavesh Jain" />
+<meta property="og:description" content="Evaluate agent workflows at the task, trace, and side-effect levels, with reproducible fixtures and explicit limits on retries and tool use." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/multi-agent-eval-harnesses.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/multi-agent-eval-harnesses.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Notes from Building Multi-Agent Eval Harnesses — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/multi-agent-eval-harnesses.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Notes from Building Multi-Agent Eval Harnesses",
+  "description": "Evaluate agent workflows at the task, trace, and side-effect levels, with reproducible fixtures and explicit limits on retries and tool use.",
+  "url": "https://blog.bhaveshjain.com/multi-agent-eval-harnesses.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/multi-agent-eval-harnesses.html"
+  },
+  "datePublished": "2026-04-12",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/multi-agent-eval-harnesses.png",
+  "keywords": [
+    "multi-agent",
+    "evaluation"
+  ],
+  "wordCount": 557,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+    <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="ai3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fcb045"/><stop offset="100%" stop-color="#fd1d77"/></linearGradient>
+      </defs>
+      <rect width="1200" height="525" fill="#0a0a18"/>
+      <g stroke="url(#ai3)" stroke-width="1.5" fill="none" opacity="0.6">
+        <rect x="100"  y="120" width="200" height="80" rx="12"/>
+        <rect x="100"  y="240" width="200" height="80" rx="12"/>
+        <rect x="100"  y="360" width="200" height="80" rx="12"/>
+        <rect x="900"  y="240" width="200" height="80" rx="12"/>
+        <path d="M300 160 L900 270"/>
+        <path d="M300 280 L900 280"/>
+        <path d="M300 400 L900 290"/>
+      </g>
+      <g fill="url(#ai3)" opacity="0.6">
+        <circle cx="200" cy="160" r="14"/><circle cx="200" cy="280" r="14"/><circle cx="200" cy="400" r="14"/><circle cx="1000" cy="280" r="20"/>
+      </g>
+      <text x="60" y="490" font-family="JetBrains Mono, monospace" font-size="14" fill="#a0a0c0">// each agent gets its own report card</text>
+    </svg>
+  </div>
+<div class="post-meta"><time datetime="2026-04-12">2026-04-12</time> · Updated <time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#multi-agent">#multi-agent</a> <a class="tag" href="tags.html#evaluation">#evaluation</a></div>
+<h1>Notes from Building Multi-Agent Eval Harnesses</h1>
+<div class="post-body">
+<p>An agent workflow can produce a correct final answer after taking an unacceptable route. It might call an expensive tool repeatedly, access the wrong account, or send the same notification twice. A final-answer score alone will miss those failures.</p>
+<p>The evaluation harness therefore needs three views: did the task succeed, did the system follow its operating constraints, and what happened outside the conversation? Splitting the workflow across more agents does not remove those responsibilities. It creates more boundaries where they need checking.</p>
+<h2>Use a task fixture, not just a prompt</h2>
+<p>A useful fixture includes the starting state, the user's request, available tools, permission context, expected outcomes, and forbidden effects. For a hypothetical meeting assistant, the fixture might include a calendar snapshot and a rule that invitations require approval.</p>
+<p>The expected result need not prescribe one exact sequence of steps. Two valid workflows may reach the same outcome. Test the invariants that matter: no overlapping booking, no unauthorized recipient, and no external send before approval.</p>
+<h2>Capture structured events</h2>
+<p>Record tool names, validated arguments, result summaries, timing, and state transitions under a shared run identifier. Preserve enough evidence to explain a failure without collecting every available secret or personal field. Logging needs a retention and access policy.</p>
+<p>Use trace checks for empty retrieval, repeated delegation, invalid arguments, and exhausted budgets. Keep these diagnostic metrics alongside the end-to-end result. Passing each local step does not prove that the complete workflow met the user's goal.</p>
+<h2>Separate deterministic checks from judgments</h2>
+<p>Code can check schemas, allowed tool names, authorization outcomes, and whether a write happened more than once. Humans or carefully calibrated model judges may be needed to assess whether a summary distorted a source or whether the final answer resolved an ambiguous request.</p>
+<p>Version the rubric as well as the model and prompt. Otherwise a score change can come from a changed judge rather than a changed application. Preserve disagreement examples so the team can improve the rubric rather than repeatedly arguing about one opaque number.</p>
+<h2>Replay carefully</h2>
+<p>Recorded tool responses make regression tests cheaper and more reproducible. However, a cache keyed only by model, prompt, and sampling parameters is incomplete for a stateful workflow. The effective input can also include conversation history, retrieved context, tool definitions, authorization scope, and environment state.</p>
+<p>A replay tests behavior against a recorded world; it does not prove that today's external integration works. Keep a smaller integration suite for live contract checks, with isolated test accounts and controlled side effects. Never replay a production write simply to reproduce a score.</p>
+<h2>Make failure and recovery part of the fixture</h2>
+<ul>
+<li>Return a timeout after a tool may already have completed its operation.</li>
+<li>Make one dependency unavailable and check the fallback.</li>
+<li>Supply conflicting records and verify that the conflict survives the summary.</li>
+<li>Limit the number of steps and the total execution budget.</li>
+<li>Ask for an action outside the user's permissions.</li>
+</ul>
+<p>Run stochastic cases more than once and report variation instead of selecting the best trace. A release report should contain outcome rates, constraint violations, cost and latency distributions, and representative changed cases. If the report cannot explain why a candidate is safer or more useful than the current workflow, the harness is not yet doing its job.</p>
+<p>Related: <a href="black-box-to-glass-box.html">inspectable agent interfaces</a> and <a href="prototype-to-production.html">the prototype-to-production boundary</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic: Building effective agents</a></li>
+<li><a href="https://sre.google/workbook/canarying-releases/">Google SRE Workbook: Canarying Releases</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="bibliometrics-for-beginners.html"><span class="pn-label">← Previous article</span><span class="pn-title">Bibliometrics for Beginners: Reading Research Signals Carefully</span></a>
+  <a class="post-nav-link next" href="foresight-vs-forecasting.html"><span class="pn-label">Next article →</span><span class="pn-title">Strategic Foresight vs Forecasting: They&#x27;re Not the Same</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

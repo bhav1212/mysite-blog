@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Design uncertainty as a useful next step: distinguish missing evidence, ambiguous requests, insufficient confidence, and unavailable capabilities." />
+<title>When an AI Product Should Say “I Don&#x27;t Know” — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/useful-uncertainty.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="When an AI Product Should Say “I Don&#x27;t Know” — Bhavesh Jain" />
+<meta property="og:description" content="Design uncertainty as a useful next step: distinguish missing evidence, ambiguous requests, insufficient confidence, and unavailable capabilities." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/useful-uncertainty.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/useful-uncertainty.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="When an AI Product Should Say “I Don&#x27;t Know” — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/useful-uncertainty.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "When an AI Product Should Say “I Don't Know”",
+  "description": "Design uncertainty as a useful next step: distinguish missing evidence, ambiguous requests, insufficient confidence, and unavailable capabilities.",
+  "url": "https://blog.bhaveshjain.com/useful-uncertainty.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/useful-uncertainty.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/useful-uncertainty.png",
+  "keywords": [
+    "human-AI interaction",
+    "evaluation"
+  ],
+  "wordCount": 609,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#human-ai-interaction">#human-AI interaction</a> <a class="tag" href="tags.html#evaluation">#evaluation</a></div>
+<h1>When an AI Product Should Say “I Don&#x27;t Know”</h1>
+<div class="post-body">
+<p>“I don't know” can be a responsible answer and a terrible interface. If it leaves the user with no explanation or next step, the system has merely transferred the problem. A useful uncertainty state helps the user understand what is missing and how to proceed.</p>
+<p>The product question is not whether the assistant should always answer or always abstain. It is which conditions justify an answer, which require clarification, and which need a different workflow.</p>
+<h2>Name the uncertainty before designing the message</h2>
+<p>Missing evidence, conflicting sources, ambiguous intent, and lack of permission are different conditions. They should not all become “something went wrong.” A technical outage is different again: the system may know how to perform the task but be unable to reach a dependency.</p>
+<p>In a hypothetical policy assistant, the right response to a missing location might be a clarification question. The right response to contradictory approved policies might be a cited explanation and escalation. A lack of access should not reveal that a confidential document exists.</p>
+<h2>Do not turn a feeling into a percentage</h2>
+<p>A generated statement of confidence is not automatically a calibrated probability. If a product uses a measured probability to decide when to abstain, validate it on appropriate held-out data and examine whether the relationship holds for important task groups.</p>
+<p>Even then, the threshold is a product decision about consequences. An acceptable threshold for suggesting a folder label need not be appropriate for executing an external action. Keep that policy separate from the model's estimate.</p>
+<h2>Evaluate what the system declines</h2>
+<p>A system can improve the accuracy of its answered cases by refusing more difficult requests. That may be desirable within limits, but the apparent gain does not describe the whole experience. Report both the fraction answered and the quality of those answers.</p>
+<p>Also review the declined cases. Which could have been answered safely? Which users or task types are disproportionately routed to manual work? A fallback that always lands on the same small support team may be safe for the model and unsustainable for the service.</p>
+<h2>Offer the smallest useful next step</h2>
+<p>Ask for a missing field when it could resolve the uncertainty. Offer a relevant source when the user can verify it. Route a case to an accountable reviewer when the decision needs judgment. State that a dependency is unavailable when retrying later is genuinely appropriate.</p>
+<p>Do not ask users for information the system will ignore, or promise an escalation that nobody receives. A fallback path deserves the same completion checks as the successful automated path.</p>
+<h2>Preserve the boundary in the interface</h2>
+<p>A draft, a recommendation, and an executed action should look different. If the system provides a partial answer, identify what remains unresolved rather than blending assumptions into the prose. Keep uncertain content out of downstream automated actions unless the receiving system has an explicit policy for it.</p>
+<p>For the policy example, the assistant might summarize the uncontested general rule while saying that the regional exception needs confirmation. Whether that partial answer is useful depends on the task; in some workflows, any unresolved exception should stop the process.</p>
+<h2>Make the fallback measurable</h2>
+<p>Track whether the user resolves the task after clarification or review, how long that takes, and how often the fallback itself fails. Inspect a sample of confident answers as well as abstentions. Otherwise the team sees the cautious failures and misses the silent ones.</p>
+<p>The aim is appropriate reliance: a user who knows when the system can help, when to verify it, and how to continue when it cannot. See <a href="human-in-loop-workflows.html">designing the review queue</a> and <a href="black-box-to-glass-box.html">making evidence inspectable</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.microsoft.com/en-us/research/uploads/prod/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf">Microsoft: Guidelines for Human-AI Interaction</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn: Probability calibration</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="prototype-to-production.html"><span class="pn-label">← Previous article</span><span class="pn-title">From Prototype to Product: The Work Around the Demo</span></a>
+  <a class="post-nav-link next" href="black-box-to-glass-box.html"><span class="pn-label">Next article →</span><span class="pn-title">From Black Box to Glass Box: Why Multi-Agent Systems Need to Show Their Work</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

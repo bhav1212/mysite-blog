@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Reduce the breadth of a first release without removing the beginning, ending, and recovery steps that make it useful." />
+<title>An MVP Should Complete One Workflow — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/mvp-one-workflow.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="An MVP Should Complete One Workflow — Bhavesh Jain" />
+<meta property="og:description" content="Reduce the breadth of a first release without removing the beginning, ending, and recovery steps that make it useful." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/mvp-one-workflow.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/mvp-one-workflow.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="An MVP Should Complete One Workflow — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/mvp-one-workflow.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "An MVP Should Complete One Workflow",
+  "description": "Reduce the breadth of a first release without removing the beginning, ending, and recovery steps that make it useful.",
+  "url": "https://blog.bhaveshjain.com/mvp-one-workflow.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/mvp-one-workflow.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/mvp-one-workflow.png",
+  "keywords": [
+    "MVP",
+    "product delivery"
+  ],
+  "wordCount": 597,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#mvp">#MVP</a> <a class="tag" href="tags.html#product-delivery">#product delivery</a></div>
+<h1>An MVP Should Complete One Workflow</h1>
+<div class="post-body">
+<p>A first release can contain a little of every planned feature and still do nothing end to end. There is a form without confirmation, a dashboard without an action, and an export that requires a developer to finish the job. The scope is small, but the user has not gained a complete capability.</p>
+<p>I find it more useful to define an MVP as a narrow workflow that reaches a meaningful outcome. Reduce the range of supported situations before removing the steps that make the supported situation work.</p>
+<h2>Choose a beginning and an ending</h2>
+<p>Consider an illustrative internal request service. The workflow begins when an employee needs access to a resource. It ends when access is granted or declined with an understandable reason. Submitting the form is an intermediate event, not the user's outcome.</p>
+<p>A narrow first version might support one resource type and one approval group. It should still provide validation, routing, status, and a final response. That teaches the team about a real process rather than only about form completion.</p>
+<h2>Cut scope along the edges</h2>
+<p>Limit users, integrations, request types, supported formats, or operating hours where those limits are appropriate and clearly communicated. A well-defined boundary gives the team a manageable promise.</p>
+<p>Do not quietly cut the parts that protect that promise. Access controls, understandable errors, and a route for unresolved requests remain necessary even when the first version serves a small group. “Minimum” should describe supported scope, not a lower standard of honesty.</p>
+<h2>Keep manual work visible</h2>
+<p>A manual step can be a sensible way to learn before automating. For the access example, an operator might perform the final provisioning while the system handles intake and status. That can still be a complete service if users understand the expected timing and someone owns the handoff.</p>
+<p>Record the time and exceptions involved. Do not present the manual step as automated or exclude it from the cost of delivering the outcome. Otherwise the team can mistake a labor-intensive pilot for a scalable product.</p>
+<h2>Define the lesson the release should teach</h2>
+<p>A useful hypothesis might be that clear ownership and status reduce the need for employees to chase requests. The release then needs evidence about repeated inquiries, time to resolution, and unresolved cases—not just registrations or form submissions.</p>
+<p>Set a review point and describe what would justify expansion, revision, or stopping. The first release should reduce uncertainty about the next investment. Shipping something small without a learning question can simply create another small thing to maintain.</p>
+<h2>Test the unsupported path too</h2>
+<p>Users will arrive with requests outside the chosen boundary. Explain what is supported and provide a useful alternative for the rest. A narrow product that makes every unsupported request look like a technical failure creates avoidable confusion.</p>
+<p>Check empty states, duplicate submissions, missing information, and delayed fulfillment. The first release need not handle every case automatically, but it should not lose the request or leave the user unsure whether anything happened.</p>
+<h2>Expand from observed bottlenecks</h2>
+<p>After the pilot, examine where the workflow stalled. Perhaps another integration would help; perhaps the approval policy is the bottleneck. Add scope in response to that evidence rather than restoring every feature cut from the original plan.</p>
+<p>The smallest useful product is often less broad and more complete than the smallest impressive demo. That distinction creates better learning because users can actually finish something. Pair it with <a href="discovery-before-backlog.html">a specific problem definition</a> and <a href="product-metrics-decisions.html">metrics tied to completion</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works">GOV.UK Service Manual: How the alpha phase works</a></li>
+<li><a href="https://www.gov.uk/service-manual/measuring-success/how-to-set-performance-metrics-for-your-service">GOV.UK Service Manual: How to set performance metrics for your service</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="ml-monitoring-after-launch.html"><span class="pn-label">← Previous article</span><span class="pn-title">ML Monitoring After Launch: From Dashboards to Decisions</span></a>
+  <a class="post-nav-link next" href="product-feedback-prioritization.html"><span class="pn-label">Next article →</span><span class="pn-title">Turning Product Feedback into Decisions, Not Just Tickets</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

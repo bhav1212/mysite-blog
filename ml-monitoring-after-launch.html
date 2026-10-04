@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Separate service health, data quality, model outcomes, and user impact—and give each alert an owner and an action." />
+<title>ML Monitoring After Launch: From Dashboards to Decisions — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/ml-monitoring-after-launch.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="ML Monitoring After Launch: From Dashboards to Decisions — Bhavesh Jain" />
+<meta property="og:description" content="Separate service health, data quality, model outcomes, and user impact—and give each alert an owner and an action." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/ml-monitoring-after-launch.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/ml-monitoring-after-launch.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="ML Monitoring After Launch: From Dashboards to Decisions — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/ml-monitoring-after-launch.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ML Monitoring After Launch: From Dashboards to Decisions",
+  "description": "Separate service health, data quality, model outcomes, and user impact—and give each alert an owner and an action.",
+  "url": "https://blog.bhaveshjain.com/ml-monitoring-after-launch.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/ml-monitoring-after-launch.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/ml-monitoring-after-launch.png",
+  "keywords": [
+    "MLOps",
+    "metrics"
+  ],
+  "wordCount": 575,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#mlops">#MLOps</a> <a class="tag" href="tags.html#metrics">#metrics</a></div>
+<h1>ML Monitoring After Launch: From Dashboards to Decisions</h1>
+<div class="post-body">
+<p>A dashboard can be full of green indicators while a model becomes less useful. Requests still succeed, latency looks normal, and predictions keep arriving. Meanwhile, an upstream field has changed meaning or a new user group is receiving poor results.</p>
+<p>I would organize monitoring around four questions: is the service running, are its inputs meaningful, are its outputs good enough, and are users completing the task? Each question needs different evidence and often arrives on a different timescale.</p>
+<h2>Service health is necessary, not sufficient</h2>
+<p>Monitor request volume, errors, latency, and resource pressure. Include external dependencies and queue depth. A timeout can matter as much as an incorrect prediction when the user must make a decision immediately.</p>
+<p>Define success at the right boundary. An HTTP response can be successful while the application returns an empty result or silently falls back to stale data. Measure the user-visible outcome rather than relying only on infrastructure status codes.</p>
+<h2>Input checks should reflect meaning</h2>
+<p>Check required fields, freshness, plausible ranges, and known category changes. In an illustrative shipment model, a weight field switching from kilograms to grams can be numerically valid and operationally disastrous. A type check alone will not catch it.</p>
+<p>Use a data contract to specify units and availability. Quarantine or explicitly degrade when a critical check fails. Silently filling a broken field with a default may keep the service online while making every prediction less interpretable.</p>
+<h2>Drift is a question, not a verdict</h2>
+<p>A changed input distribution can indicate seasonality, a new customer population, instrumentation changes, or a data defect. It is evidence that something changed, not direct proof that predictive performance worsened.</p>
+<p>Choose reference windows that fit the task and investigate alerts in context. Do not trigger automatic retraining simply because a statistic moved. If the new data is corrupted, retraining can preserve the defect in a new model artifact.</p>
+<h2>Plan for delayed outcomes</h2>
+<p>Some labels arrive days or weeks after a prediction. Track the delay and distinguish immature outcome cohorts from fully observed ones. Comparing this week's partial labels with last month's complete labels can create a misleading performance story.</p>
+<p>Where immediate proxies are used, state what they do and do not measure. A user accepting a suggestion is not necessarily evidence that it was correct. Periodic review or later outcome data may be needed to check the proxy.</p>
+<h2>Connect alerts to an operating response</h2>
+<p>For each alert, write a short runbook: who investigates, what evidence to inspect, what can be paused, and how to restore the previous operating mode. Decide which alerts need immediate attention and which belong in a scheduled quality review.</p>
+<p>A practical response to a missing critical feed may be to stop automatic publication and expose a labeled fallback. A response to a gradual segment-level quality decline may be to collect cases, test an intervention, and release it through the normal evaluation process. Those are different operational situations.</p>
+<h2>Review the monitoring system itself</h2>
+<p>Track false alarms, missed incidents, and whether the documented actions actually worked. Remove alerts that repeatedly produce no decision, or improve their context. An alert that nobody trusts is a weak control even if its underlying statistic is sophisticated.</p>
+<p>Monitoring becomes valuable when it changes what the team does. The dashboard is only the interface to that process. Start with <a href="data-contracts-ml.html">clear input contracts</a>, connect to <a href="product-metrics-decisions.html">user outcomes</a>, and use <a href="prompt-changes-production.html">controlled releases</a> for the fixes.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://sre.google/sre-book/monitoring-distributed-systems/">Google SRE: Monitoring Distributed Systems</a></li>
+<li><a href="https://www.tensorflow.org/tfx/data_validation/get_started">TensorFlow Data Validation: Get started</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="human-in-loop-workflows.html"><span class="pn-label">← Previous article</span><span class="pn-title">Human Review Is a Workflow, Not a Checkbox</span></a>
+  <a class="post-nav-link next" href="mvp-one-workflow.html"><span class="pn-label">Next article →</span><span class="pn-title">An MVP Should Complete One Workflow</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

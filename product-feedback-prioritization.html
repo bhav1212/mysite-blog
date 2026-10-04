@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Preserve the problem behind a request, compare evidence across users, and prioritize changes without treating request volume as a complete roadmap." />
+<title>Turning Product Feedback into Decisions, Not Just Tickets — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/product-feedback-prioritization.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Turning Product Feedback into Decisions, Not Just Tickets — Bhavesh Jain" />
+<meta property="og:description" content="Preserve the problem behind a request, compare evidence across users, and prioritize changes without treating request volume as a complete roadmap." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/product-feedback-prioritization.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/product-feedback-prioritization.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Turning Product Feedback into Decisions, Not Just Tickets — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/product-feedback-prioritization.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Turning Product Feedback into Decisions, Not Just Tickets",
+  "description": "Preserve the problem behind a request, compare evidence across users, and prioritize changes without treating request volume as a complete roadmap.",
+  "url": "https://blog.bhaveshjain.com/product-feedback-prioritization.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/product-feedback-prioritization.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/product-feedback-prioritization.png",
+  "keywords": [
+    "product discovery",
+    "prioritization"
+  ],
+  "wordCount": 572,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#product-discovery">#product discovery</a> <a class="tag" href="tags.html#prioritization">#prioritization</a></div>
+<h1>Turning Product Feedback into Decisions, Not Just Tickets</h1>
+<div class="post-body">
+<p>A feedback channel can become a second backlog: every request turns into a ticket, repeated requests gain votes, and the loudest problem appears to be the most important. The process looks responsive while leaving the team unclear about what users are actually trying to accomplish.</p>
+<p>I would keep requests as evidence, not automatically as commitments. A suggestion tells us something about a person's situation. It does not, by itself, establish the best solution or the priority relative to other work.</p>
+<h2>Preserve the context around the request</h2>
+<p>Consider the illustrative request, “Please add an Excel export.” Ask what happens after the export. The user may need a monthly reconciliation, a format accepted by another system, or a way to share a result with someone who lacks access.</p>
+<p>Those needs point toward different solutions. Record the task, frequency, workaround, consequence, and constraints. Keep the user's proposed solution too, but do not let it replace the problem statement.</p>
+<h2>Group by problem, not only by feature wording</h2>
+<p>“Add notifications,” “show pending requests,” and “let me filter by owner” might all describe difficulty following up unresolved work. Grouping only by requested feature can split one underlying problem into several unrelated initiatives.</p>
+<p>Conversely, identical requests can come from different needs. Two users asking for an export may have different data, permission, and delivery requirements. Review the context before assuming one implementation resolves both.</p>
+<h2>Count carefully</h2>
+<p>Distinguish unique affected users or accounts from repeated messages about the same incident. Note which channels supply the evidence and which users are absent. Support logs overrepresent people who contact support; sales conversations may emphasize prospective needs rather than current use.</p>
+<p>Request volume is one signal. Severity, frequency of the underlying task, strategic fit, accessibility, and the availability of a workaround also matter. A rare problem can deserve priority if it blocks an important outcome or creates a serious risk.</p>
+<h2>Use a decision brief before a delivery ticket</h2>
+<p>A brief can state the problem, affected group, evidence, current workaround, proposed options, and the main uncertainty. That gives product, design, and engineering a shared question before implementation details dominate the conversation.</p>
+<p>For the export example, the uncertainty might be whether an existing scheduled report already supplies the necessary data. The next action could be an interview or a small prototype rather than immediate feature development. Discovery work belongs in prioritization too.</p>
+<h2>Make trade-offs visible without false precision</h2>
+<p>A scoring framework can organize discussion, but its inputs are often estimates. Treat the score as a prompt for review, not an objective ranking that eliminates judgment. Show where evidence is weak and how sensitive the order is to assumptions.</p>
+<p>Keep a short reason for proceeding, deferring, or declining. Revisit the decision when important conditions change. An old score should not outlive the user problem that produced it.</p>
+<h2>Close the loop with the people who helped</h2>
+<p>Tell contributors what was understood and what happens next without promising a delivery date the team has not committed to. If the team ships a change, check whether it resolves the original task. A feature can satisfy the wording of a request while leaving the underlying work untouched.</p>
+<p>Feedback becomes valuable when it changes the team's understanding, not only when it increases the ticket count. Related: <a href="discovery-before-backlog.html">investigating recent real behavior</a>, <a href="mvp-one-workflow.html">scoping a useful first intervention</a>, and <a href="product-metrics-decisions.html">checking whether the outcome improved</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.gov.uk/service-manual/user-research/using-in-depth-interviews">GOV.UK Service Manual: Using in-depth interviews</a></li>
+<li><a href="https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works">GOV.UK Service Manual: How the discovery phase works</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="mvp-one-workflow.html"><span class="pn-label">← Previous article</span><span class="pn-title">An MVP Should Complete One Workflow</span></a>
+  <a class="post-nav-link next" href="product-metrics-decisions.html"><span class="pn-label">Next article →</span><span class="pn-title">Product Metrics That Change a Decision</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

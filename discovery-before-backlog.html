@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Investigate the task, workaround, and consequence before turning a feature request into months of delivery work." />
+<title>Product Discovery Before the Backlog Gets Expensive — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/discovery-before-backlog.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Product Discovery Before the Backlog Gets Expensive — Bhavesh Jain" />
+<meta property="og:description" content="Investigate the task, workaround, and consequence before turning a feature request into months of delivery work." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/discovery-before-backlog.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/discovery-before-backlog.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Product Discovery Before the Backlog Gets Expensive — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/discovery-before-backlog.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Product Discovery Before the Backlog Gets Expensive",
+  "description": "Investigate the task, workaround, and consequence before turning a feature request into months of delivery work.",
+  "url": "https://blog.bhaveshjain.com/discovery-before-backlog.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/discovery-before-backlog.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/discovery-before-backlog.png",
+  "keywords": [
+    "product discovery",
+    "user research"
+  ],
+  "wordCount": 601,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "Product development"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#ff965f" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#product-discovery">#product discovery</a> <a class="tag" href="tags.html#user-research">#user research</a></div>
+<h1>Product Discovery Before the Backlog Gets Expensive</h1>
+<div class="post-body">
+<p>A request arrives: “We need a dashboard.” It is specific enough to estimate, familiar enough to design, and vague enough to conceal several different problems. Someone may need visibility, a reminder, an export, or a way to resolve an exception. A dashboard is only one possible answer.</p>
+<p>I would rather spend the first conversation understanding a recent instance of the work than debating which chart should appear at the top. Product discovery is useful when it reduces uncertainty about the problem before delivery makes a solution expensive to abandon.</p>
+<h2>Ask for the last real occurrence</h2>
+<p>In an illustrative operations workflow, ask the person to walk through the last time a shipment status was unclear. What triggered the investigation? Which systems did they open? Who did they contact? What happened if they could not resolve it?</p>
+<p>Questions about a recent event produce different evidence from “Would you use a dashboard?” The latter invites an opinion about an imagined future. Neither answer should be treated as a precise forecast of adoption, but the actual workflow gives the team something observable to investigate.</p>
+<h2>Map the workaround without judging it</h2>
+<p>A spreadsheet, message thread, or handwritten reminder may look inefficient while serving an important coordination function. Find out what it preserves: ownership, exception notes, shared context, or a record of who confirmed the answer.</p>
+<p>Removing the workaround without replacing that function can make the polished product less useful. The goal is not to modernize the appearance of the work; it is to improve the outcome while respecting the constraints people currently navigate.</p>
+<h2>Separate the actor, need, and consequence</h2>
+<p>A short problem statement might read: an operations coordinator needs to identify who owns an unresolved shipment exception before a customer deadline, because searching across systems delays the response. That statement is much more useful than “users need visibility.”</p>
+<p>It also suggests evidence to collect: where ownership is stored, how often it is missing, which exceptions are time-sensitive, and whether the coordinator can actually act after finding it. A new interface cannot fix an ownership rule that the organization has not defined.</p>
+<h2>Keep alternatives alive long enough to compare them</h2>
+<p>The first intervention might be a consistent owner field, a clearer notification, a saved exception view, or a small service change. Sketch several paths before committing to the dashboard. Prototype only enough to test the risky assumption in each.</p>
+<p>Recruit people who encounter different parts of the workflow, including those who abandon it or rely on assistance. A discovery exercise based only on enthusiastic early users can produce a neat solution for an unrepresentative group.</p>
+<h2>Write down what would change your mind</h2>
+<p>For each promising idea, identify the uncertain premise. Perhaps the owner information already exists but is hard to find. Perhaps it is missing entirely. Those situations require different work.</p>
+<p>A useful next experiment might ask participants to resolve a realistic exception using a lightweight prototype. Observe whether they can identify an owner and finish the next action. Do not confuse compliments about the screen with evidence that the task became easier.</p>
+<h2>Let discovery change the backlog</h2>
+<p>The output should include the problem, affected users, evidence, constraints, tested alternatives, and unresolved questions. Some work may proceed; some may shrink; some may stop. Discovery that can only approve the original feature is not doing much discovery.</p>
+<p>The practical learning is to make the problem more specific before making the solution more elaborate. Continue with <a href="mvp-one-workflow.html">a complete but narrow MVP</a> and <a href="product-feedback-prioritization.html">turning feedback into evidence rather than tickets</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.gov.uk/service-manual/user-research/using-in-depth-interviews">GOV.UK Service Manual: Using in-depth interviews</a></li>
+<li><a href="https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works">GOV.UK Service Manual: How the discovery phase works</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="data-contracts-ml.html"><span class="pn-label">← Previous article</span><span class="pn-title">Data Contracts: The Less Glamorous Side of Reliable ML</span></a>
+  <a class="post-nav-link next" href="experiment-small-samples.html"><span class="pn-label">Next article →</span><span class="pn-title">Product Experiments When You Don&#x27;t Have Huge Traffic</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>

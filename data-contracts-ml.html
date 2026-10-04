@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Define units, timestamps, ownership, and failure behavior at data boundaries so a valid-looking input cannot silently change the meaning of a prediction." />
+<title>Data Contracts: The Less Glamorous Side of Reliable ML — Bhavesh Jain</title>
+<script src="/theme.js?v=c8187cee8686"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=c8187cee8686" />
+<link rel="canonical" href="https://blog.bhaveshjain.com/data-contracts-ml.html" />
+<meta property="og:site_name" content="Bhavesh Jain" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-04" />
+<meta property="article:modified_time" content="2026-09-04" />
+<meta property="og:title" content="Data Contracts: The Less Glamorous Side of Reliable ML — Bhavesh Jain" />
+<meta property="og:description" content="Define units, timestamps, ownership, and failure behavior at data boundaries so a valid-looking input cannot silently change the meaning of a prediction." />
+<meta property="og:url" content="https://blog.bhaveshjain.com/data-contracts-ml.html" />
+<meta property="og:image" content="https://blog.bhaveshjain.com/assets/og/data-contracts-ml.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Data Contracts: The Less Glamorous Side of Reliable ML — Bhavesh Jain" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.bhaveshjain.com/assets/og/data-contracts-ml.png" />
+<link rel="preload" href="/assets/fonts/geist-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/fraunces-400-latin.woff2?v=c8187cee8686" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/styles.css?v=c8187cee8686" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Data Contracts: The Less Glamorous Side of Reliable ML",
+  "description": "Define units, timestamps, ownership, and failure behavior at data boundaries so a valid-looking input cannot silently change the meaning of a prediction.",
+  "url": "https://blog.bhaveshjain.com/data-contracts-ml.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.bhaveshjain.com/data-contracts-ml.html"
+  },
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "image": "https://blog.bhaveshjain.com/assets/og/data-contracts-ml.png",
+  "keywords": [
+    "data quality",
+    "MLOps"
+  ],
+  "wordCount": 584,
+  "timeRequired": "PT3M",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Bhavesh Jain",
+    "url": "https://bhaveshjain.com/",
+    "jobTitle": "Data Scientist",
+    "sameAs": [
+      "https://www.linkedin.com/in/bhav1212/",
+      "https://github.com/bhav1212"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "Bhavesh Jain — Writing",
+    "url": "https://blog.bhaveshjain.com/"
+  },
+  "articleSection": "AI / ML"
+}
+</script>
+<link rel="alternate" type="application/rss+xml" title="Bhavesh Jain — Writing" href="https://blog.bhaveshjain.com/feed.xml" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="nav">
+  <a href="https://bhaveshjain.com/" class="nav-logo">
+    <span class="logo-mark">B</span>
+    <span>Bhavesh Jain</span>
+  </a>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
+    <a href="https://bhaveshjain.com/#work">Work</a>
+    <a href="https://bhaveshjain.com/#about">About</a>
+    <a href="./" class="active">Writing</a>
+    <a href="https://bhaveshjain.com/#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <div class="nav-tools">
+    <button class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<article class="post">
+
+<div class="post-cover">
+  <svg viewBox="0 0 1200 525" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="1200" height="525" fill="#0a0a18"/>
+    <g fill="none" stroke="#67e8f9" stroke-width="2">
+      <rect x="155" y="175" width="210" height="175" rx="24"/>
+      <rect x="495" y="130" width="210" height="265" rx="24"/>
+      <rect x="835" y="175" width="210" height="175" rx="24"/>
+      <path d="M365 262H495M705 262H835"/>
+      <circle cx="260" cy="262" r="38"/>
+      <path d="M550 263l35 35 68-78M880 238h120M880 264h90M880 290h60"/>
+    </g>
+  </svg>
+</div>
+<div class="post-meta"><time datetime="2026-09-04">2026-09-04</time> · 3 min read · <a class="tag" href="tags.html#data-quality">#data quality</a> <a class="tag" href="tags.html#mlops">#MLOps</a></div>
+<h1>Data Contracts: The Less Glamorous Side of Reliable ML</h1>
+<div class="post-body">
+<p>A model expects a field called <code>amount</code>. The upstream service continues sending a number, so the schema check passes. But the value now represents a different currency or a different aggregation period. Nothing crashed; the meaning changed.</p>
+<p>That is the kind of boundary I would want a data contract to make visible. A contract is more than a list of columns. It describes what the data means, when it is available, who owns it, and what happens when the agreement stops holding.</p>
+<h2>Start with semantics</h2>
+<p>For each important field, specify units, allowed values, null meaning, and the entity being described. Does a missing quantity mean zero, unknown, not applicable, or not yet reported? Those meanings should not collapse into one default without a deliberate decision.</p>
+<p>Keep the contract narrow enough to maintain. Focus first on fields whose change could materially affect the task. A document listing every possible property but owned by nobody can become less useful than a small enforced agreement.</p>
+<h2>Make time part of the schema</h2>
+<p>Distinguish when an event occurred, when it was recorded, and when it became available to the forecasting or decision system. Those timestamps can differ. Historical evaluation needs to respect the information that was actually available at the prediction cutoff.</p>
+<p>For an illustrative shipment dataset, <code>observed_at</code> might describe the event and <code>available_at</code> its arrival in the analytical system. The contract should also specify timezone, late-arrival handling, and whether corrected records replace or supplement earlier versions.</p>
+<h2>Define validation and failure behavior together</h2>
+<p>Type and range checks catch some issues. Freshness, completeness, and category checks catch others. Distribution checks can reveal a change worth investigating, but a changed distribution is not automatically invalid data.</p>
+<p>Each consequential check needs an action. A critical unit mismatch might quarantine a batch. A newly observed category might trigger review while allowing a documented fallback. A late optional feature might permit a degraded mode. Avoid a generic “log warning and continue” policy for every failure.</p>
+<h2>Version changes across the boundary</h2>
+<p>Agree how producers announce changes, how consumers test compatibility, and how long old and new formats coexist. Test candidate transformations against representative historical and current data before changing production behavior.</p>
+<p>A version label alone does not establish compatibility. A renamed field may be easy to migrate; an unchanged field with a new business definition may not be. Include semantic changes in the review, not only schema diffs.</p>
+<h2>Check training and serving separately</h2>
+<p>A feature can be calculated correctly in a notebook and differently in the live service. Compare definitions, timing, missing-value handling, and access to source data across both paths. Do not let a convenient training-time join introduce information that serving will never have.</p>
+<p>Tools such as TensorFlow Data Validation can help detect schema anomalies, skew, and drift. They provide checks, not ownership. Someone still needs to decide which changes are expected, which are harmful, and what response is appropriate.</p>
+<h2>A compact agreement</h2>
+<ul>
+<li>Producer and consumer owners, with an escalation route.</li>
+<li>Field meaning, units, entity keys, and time semantics.</li>
+<li>Freshness and completeness expectations.</li>
+<li>Validation rules and explicit failure modes.</li>
+<li>Versioning, migration, and retention expectations.</li>
+</ul>
+<p>The contract pays off when a change occurs, not when the document is first written. Exercise it during an integration change and an incident. If it helps the team identify responsibility and restore a meaningful input, it is doing useful work.</p>
+<p>Continue with <a href="ml-monitoring-after-launch.html">monitoring the boundary</a> and <a href="forecasting-air-cargo.html">avoiding time leakage in forecasting</a>.</p>
+
+<section class="post-sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources and further reading</h2><ul><li><a href="https://www.tensorflow.org/tfx/data_validation/get_started">TensorFlow Data Validation: Get started</a></li>
+<li><a href="https://research.google/pubs/hidden-technical-debt-in-machine-learning-systems/">Google Research: Hidden Technical Debt in Machine Learning Systems</a></li></ul></section>
+</div>
+<nav class="post-nav" aria-label="More posts">
+  <a class="post-nav-link prev" href="choosing-rag-fine-tuning.html"><span class="pn-label">← Previous article</span><span class="pn-title">RAG, Fine-Tuning, or Neither? Start with the Failure</span></a>
+  <a class="post-nav-link next" href="discovery-before-backlog.html"><span class="pn-label">Next article →</span><span class="pn-title">Product Discovery Before the Backlog Gets Expensive</span></a>
+</nav>
+<a class="post-back" href="./">← All posts</a>
+</article>
+</main>
+
+<footer class="footer-compact">
+  <div>© <span id="year"></span> Bhavesh Jain · Hand-built &amp; self-hosted</div>
+  <div class="links">
+    <a href="https://bhaveshjain.com/">Home</a>
+    <a href="./">Writing</a>
+    <a href="mailto:hello@bhaveshjain.com">Email</a>
+    <a href="/tags.html">Tags</a>
+    <a href="/feed.xml">RSS</a>
+    <a href="https://bhaveshjain.com/assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+<script src="/script.js?v=c8187cee8686"></script>
+</body>
+</html>
